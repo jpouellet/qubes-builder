@@ -478,7 +478,7 @@ diff:
 		pushd $$REPO > /dev/null; \
 		git status | grep "^nothing to commit" > /dev/null; \
 		if [ $$? -ne 0 ]; then \
-			(echo -e "Uncommited changes in $$REPO:\n\n"; git diff) | less; \
+			git diff --src-prefix="a/$${REPO##*/}/" --dst-prefix="b/$${REPO##*/}/"; \
 		fi; \
 	    popd > /dev/null; \
 	done
