@@ -487,7 +487,8 @@ diff:
 show:
 	@for REPO in $(GIT_REPOS); do \
 		pushd $$REPO > /dev/null; \
-		git show $(REF) 2>/dev/null; \
+		git show $(REF) 2>/dev/null && \
+		echo $(REF) in $$REPO; \
 		popd > /dev/null; \
 	done
 
