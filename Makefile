@@ -485,12 +485,16 @@ diff:
 	done
 
 show:
-	@for REPO in $(GIT_REPOS); do \
-		pushd $$REPO > /dev/null; \
-		git show $(REF) 2>/dev/null && \
-		echo $(REF) in $$REPO; \
-		popd > /dev/null; \
-	done
+	@if [ -n "$$REF" ]; then \
+		for REPO in $(GIT_REPOS); do \
+			pushd $$REPO > /dev/null; \
+			git show $(REF) 2>/dev/null && \
+			echo $(REF) in $$REPO; \
+			popd > /dev/null; \
+		done; \
+	else \
+		echo "Error: show target needs REF= set" >&2; \
+	fi
 
 grep-tgt = $(GIT_REPOS:$(SRC_DIR)/%=%.grep)
 RE ?= $(filter-out grep $(grep-tgt), $(MAKECMDGOALS))
