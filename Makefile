@@ -157,7 +157,7 @@ help:
 	@echo "make check-depend     -- check for build dependencies ($(DEPENDENCIES))"
 	@echo "make install-deps     -- install missing build dependencies ($(DEPENDENCIES))"
 	@echo "make diff             -- show diffs for any uncommitted changes"
-	@echo "make show REF=git_ref -- show git object git_ref regardless of what repo it\'s in"
+	@echo "make show REF=git_ref -- show git object git_ref regardless of what repo it's in"
 	@echo "make grep RE=regexp   -- grep for regexp in all components"
 	@echo "make push             -- do git push for all repos, including tags"
 	@echo "make show-vtags       -- list components version tags (only when HEAD have such) and branches"
