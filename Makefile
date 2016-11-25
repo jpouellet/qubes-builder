@@ -485,12 +485,17 @@ diff:
 	done
 
 show:
-	@for REPO in $(GIT_REPOS); do \
-		pushd $$REPO > /dev/null; \
-		git show $(REF) 2>/dev/null && \
-		echo $(REF) in $$REPO; \
-		popd > /dev/null; \
-	done
+	@if [ -n "$$REF" ]; then \
+		for REPO in $(GIT_REPOS); do \
+			pushd $$REPO > /dev/null; \
+			git show $(REF) 2>/dev/null && \
+			echo $(REF) in $$REPO; \
+			popd > /dev/null; \
+		done; \
+	else \
+		echo "Need to set REF= to search for a commit/tag/whatever" >&2; \
+		exit 1; \
+	fi
 
 grep-tgt = $(GIT_REPOS:$(SRC_DIR)/%=%.grep)
 RE ?= $(filter-out grep $(grep-tgt), $(MAKECMDGOALS))
