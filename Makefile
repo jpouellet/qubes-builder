@@ -157,6 +157,7 @@ help:
 	@echo "make check-depend     -- check for build dependencies ($(DEPENDENCIES))"
 	@echo "make install-deps     -- install missing build dependencies ($(DEPENDENCIES))"
 	@echo "make diff             -- show diffs for any uncommitted changes"
+	@echo "make show REF=git_ref -- show git object git_ref regardless of what repo it\'s in"
 	@echo "make grep RE=regexp   -- grep for regexp in all components"
 	@echo "make push             -- do git push for all repos, including tags"
 	@echo "make show-vtags       -- list components version tags (only when HEAD have such) and branches"
@@ -481,6 +482,13 @@ diff:
 			(echo -e "Uncommited changes in $$REPO:\n\n"; git diff) | less; \
 		fi; \
 	    popd > /dev/null; \
+	done
+
+show:
+	@for REPO in $(GIT_REPOS); do \
+		pushd $$REPO > /dev/null; \
+		git show $(REF) 2>/dev/null; \
+		popd > /dev/null; \
 	done
 
 grep-tgt = $(GIT_REPOS:$(SRC_DIR)/%=%.grep)
